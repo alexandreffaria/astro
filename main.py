@@ -40,6 +40,10 @@ def main():
 
             if isinstance(obj, Player):
                 for asteroid in asteroids:
+                    for shot in shots:
+                        if asteroid.checkCollision(shot):
+                            asteroid.kill()
+                            shot.kill()
                     if asteroid.checkCollision(obj):
                         print("GAMEOVER!")
                         exit(1)
