@@ -21,7 +21,7 @@ def main():
 
     Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    
+
     dt = 0
     while True:
         for event in pygame.event.get():
@@ -30,6 +30,16 @@ def main():
         screen.fill("black")
         for obj in updatable:
             obj.update(dt)
+
+            if isinstance(obj, AsteroidField):
+                continue
+
+            if isinstance(obj, Player):
+                for asteroid in asteroids:
+                    if asteroid.checkCollision(obj):
+                        print("GAMEOVER!")
+                        exit(1)
+
         for obj in drawable:
             obj.draw(screen)
 
